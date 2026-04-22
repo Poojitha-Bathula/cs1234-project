@@ -27,14 +27,12 @@ int main()
     while (fscanf(fin, "%s", cmd) != EOF)
     {
         if (cmd[0] == '#')
-        continue;
-        // 🔹 Ignore comments
-        if (cmd[0] == '#')
         {
             char skip[200];
             fgets(skip, sizeof(skip), fin);
             continue;
         }
+        //  Ignore comments
 
         // ---------------- DISPLAY ----------------
         if (strcmp(cmd, "display") == 0)
@@ -63,7 +61,7 @@ int main()
         {
             int x, y;
             char name[50];
-            fscanf(fin, "(%d,%d) %s", &x, &y, name);
+            fscanf(fin, " %d %d %s", &x, &y, name);
             rename_station(x, y, name);
 }
 
@@ -74,6 +72,7 @@ int main()
             fscanf(fin, "%s", name);
             Route *r = createRoute();
             strcpy(r->routeName, name);
+            addRoute(r);
         }
 
         // ---------------- ADD STATION ----------------
@@ -82,7 +81,7 @@ int main()
             char name[50];
             int x, y;
 
-            fscanf(fin, "%s (%d,%d)", name, &x, &y);
+            fscanf(fin, " %s %d %d",name,&x, &y);
 
             Route *r = getRouteByName(name);
             if (r)
